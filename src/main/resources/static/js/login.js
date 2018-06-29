@@ -24,6 +24,11 @@ $(document).ready(function(){
 			dataType : 'json',
 			success : function(data) {
 				alert('uspesno ste se ulogovali');
+				console.log("token valjda: "+data.access_token);
+//				$window.localStorage.token = JSON.stringify(data.access_token);
+				localStorage.setItem('token', data.access_token);
+				
+				window.location.replace("https://localhost:8443/");
 			},
 			error : function(e) {
 				alert("Error!")
@@ -35,6 +40,8 @@ $(document).ready(function(){
 			
 			
 		});
+		
+		console.log(localStorage.getItem('token'));
 		
 		event.preventDefault();
 		return false;

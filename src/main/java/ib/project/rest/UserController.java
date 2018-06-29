@@ -46,9 +46,9 @@ public class UserController {
 //	}
 	
 	
-//	@RequestMapping( method = GET, value= "/all")
-//    @PreAuthorize("hasRole('ADMIN')")
-	@GetMapping
+	@RequestMapping( method = GET)
+    @PreAuthorize("hasRole('ADMIN')")
+//	@GetMapping
     public List<User> loadAll() {
 		System.out.println("svi useriiiii: "+userService.findAll());
         return this.userService.findAll();

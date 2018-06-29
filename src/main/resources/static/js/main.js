@@ -1,15 +1,47 @@
 $(document).ready(function(){
 	console.log('probaaaaa');
 
+	console.log(localStorage.getItem('token'));
 	
-	$.get("https://localhost:8443/api/users", {}, function(data){
-		console.log(data);
-		for(var i=0; i<data.length; i++){
-			$('#test').append("<div>"+
-					"<p>"+data[i].email+"</p></div>")
+	var token = localStorage.getItem('token');
+	
+	$.ajaxSetup({
+		beforeSend: function(xhr){
+			xhr.setRequestHeader("Accept", "application/json");
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.setRequestHeader("Access-Control-Allow-Origin", "/*");
+			xhr.setRequestHeader("Authorization", "Bearer" + token);
+			
+			console.log(xhr.getResponseHeader("Authorization"));
 		}
-		
 	});
+	
+	$.ajax({
+		url: 'https://localhost:8443/api/users',
+		type: 'GET',
+		headers: {'Authorization': 'Bearer'+token},
+		contentType: 'application/json',
+//		crossDomain: true,
+		dataType: 'json',
+		success:function(data){
+			console.log(data);
+			for(var i=0; i<data.length; i++){
+				$('#test').append("<div>"+
+						"<p>"+data[i].email+"</p></div>")
+			}
+		}
+	});
+	
+	
+	
+//	$.get("https://localhost:8443/api/users", {}, function(data){
+//		console.log(data);
+//		for(var i=0; i<data.length; i++){
+//			$('#test').append("<div>"+
+//					"<p>"+data[i].email+"</p></div>")
+//		}
+//		
+//	});
 	
 });
 

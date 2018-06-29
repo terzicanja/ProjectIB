@@ -62,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	    //Definisemo prava pristupa odredjenim URL-ovima
 	    @Override
 	    protected void configure(HttpSecurity http) throws Exception {
+	    	System.out.println("jel ulazi vamo uopste");
 	        http
 	        		//komunikacija izmedju klijenta i servera je stateless
 	                .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS ).and()
