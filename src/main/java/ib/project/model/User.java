@@ -2,6 +2,7 @@ package ib.project.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ public class User implements Serializable,UserDetails {
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 	
 //	@Column(name="username")
 //	private String username;
@@ -47,13 +48,13 @@ public class User implements Serializable,UserDetails {
 	@JoinTable(name="user_authority",
 			joinColumns=@JoinColumn(name="user_id",referencedColumnName="id"),
 			inverseJoinColumns = @JoinColumn(name="authority_id",referencedColumnName="id"))
-	private Set<Authority> authorities;
+	private Set<Authority> user_authorities = new HashSet<>();
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -100,13 +101,29 @@ public class User implements Serializable,UserDetails {
 	
 	
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return this.authorities;
+	 public Collection<? extends GrantedAuthority> getAuthorities() {
+		 return this.user_authorities;
+	 }
+
+//	public void setAuthorities(Set<Authority> authorities) {
+//		this.authorities = authorities;
+//	}
+	
+	public Set<Authority> getUser_authorities() {
+		return user_authorities;
 	}
 
-	public void setAuthorities(Set<Authority> authorities) {
-		this.authorities = authorities;
+	public void setUser_authorities(Set<Authority> user_authorities) {
+		this.user_authorities = user_authorities;
 	}
+	
+//	public Set<Authority> getAuthorities() {
+//		return authorities;
+//	}
+//
+//	public void setAuthorities(Set<Authority> authorities) {
+//		this.authorities = authorities;
+//	}
 	
 	
 	@Override

@@ -25,10 +25,22 @@ public class UserService implements UserServiceInterface {
 		User user = userRepository.findByEmail(email);
 		return user;
 	}
+	
+	@Override
+	public List<User> findAllByEmail(String email) {
+		List<User> users = userRepository.findAllByEmail(email);
+		return users;
+	}
 
 	@Override
 	public List<User> findAll() {
 		List<User> users = userRepository.findAll();
+		return users;
+	}
+	
+	@Override
+	public List<User> findByActiveFalse() {
+		List<User> users = userRepository.findByActiveFalse();
 		return users;
 	}
 
