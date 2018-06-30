@@ -23,7 +23,7 @@ public class User implements Serializable,UserDetails {
 	@Id
 	@Column(name="id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Long id;
 	
 //	@Column(name="username")
 //	private String username;
@@ -50,11 +50,11 @@ public class User implements Serializable,UserDetails {
 			inverseJoinColumns = @JoinColumn(name="authority_id",referencedColumnName="id"))
 	private Set<Authority> user_authorities = new HashSet<>();
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

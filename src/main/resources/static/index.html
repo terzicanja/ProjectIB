@@ -9,12 +9,14 @@
 	</head>
 	<body>
 		<div class="container">
-			<a href="./html/login.html">logiiiiin</a>
+			<a href="./html/login.html" id="loginbtn">logiiiiin</a>
 			<a href="./html/registration.html">registracija</a>
+			<a href="#" id="logoutbtn">logout</a>
 			<a href="./user_content/cat.jpg" download>Download link for static files</a>
 			<button type="button"  onclick="download()">Download link for target/files files</button>
 			<input type="text" id="searchinput" placeholder="Search...">
 			<button id="searchbtn">Search</button>
+			<h2>Users</h2>
 			<table id="users">
 				<thead>
 					<tr>
@@ -26,7 +28,7 @@
 				</tbdody>
 			</table>
 			
-			<p>Inactive users</p>
+			<!-- <p>Inactive users</p>
 			<table id="inactive">
 				<tr>
 					<th>username</th>

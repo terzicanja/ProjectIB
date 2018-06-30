@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,7 @@ import ib.project.service.UserServiceInterface;
 
 @RestController
 @RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin("*")
 public class UserController {
 	
 	@Autowired
@@ -74,18 +76,13 @@ public class UserController {
     }
 	
 	@GetMapping(value = "/inactive")
+	@PreAuthorize("hasRole('ADMIN')")
 	public List<User> inactiveUsers(){
 		return this.userService.findByActiveFalse();
 	}
 	
 	@GetMapping(value = "/search/{text}")
 	public List<User> search(@PathVariable("text") String text){
-//		if(text.equals("")) {
-//			loadAll();
-//		}
-//		else {
-//			return this.userService.findAllByEmail(text);
-//		}
 		return this.userService.findAllByEmail(text);
 	}
 	
@@ -115,7 +112,8 @@ public class UserController {
 	}
 	
 	@PutMapping(value="/update/{id}", consumes="application/json")
-	public ResponseEntity<UserDTO> update(@RequestBody UserDTO userDTO, @PathVariable("id") Long id){
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<UserDTO> update(UserDTO userDTO, @PathVariable("id") Long id){
 		User user = userService.findById(id);
 		if(user == null) {
 			System.out.println("nisam nasao usera");

@@ -6,7 +6,7 @@ import ib.project.model.User;
 
 public class UserDTO implements Serializable {
 	
-	private Integer id;
+	private Long id;
 	private String email;
 	private String password;
 	private String certificate;
@@ -16,7 +16,7 @@ public class UserDTO implements Serializable {
 		
 	}
 	
-	public UserDTO(Integer id, String email, String password, String certificate, boolean active) {
+	public UserDTO(Long id, String email, String password, String certificate, boolean active) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -33,11 +33,11 @@ public class UserDTO implements Serializable {
 		user.isActive());
 	}
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

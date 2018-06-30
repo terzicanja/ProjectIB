@@ -5,21 +5,26 @@ $(document).ready(function(){
 	
 	var token = localStorage.getItem('token');
 	
-	$.ajaxSetup({
-		beforeSend: function(xhr){
-			xhr.setRequestHeader("Accept", "application/json");
-			xhr.setRequestHeader("Content-Type", "application/json");
-			xhr.setRequestHeader("Access-Control-Allow-Origin", "/*");
-			xhr.setRequestHeader("Authorization", "Bearer" + token);
-			
-			console.log(xhr.getResponseHeader("Authorization"));
-		}
-	});
+	if(token == null){
+		console.log("token je null");
+//		$('#loginbtn')
+	}
+	
+//	$.ajaxSetup({
+//		beforeSend: function(xhr){
+//			xhr.setRequestHeader("Accept", "application/json");
+//			xhr.setRequestHeader("Content-Type", "application/json");
+//			xhr.setRequestHeader("Access-Control-Allow-Origin", "/*");
+//			xhr.setRequestHeader("Authorization", "Bearer" + token);
+//			
+//			console.log(xhr.getResponseHeader("Authorization"));
+//		}
+//	});
 	
 	$.ajax({
 		url: 'https://localhost:8443/api/users',
 		type: 'GET',
-//		headers: {'Authorization': 'Bearer'+token},
+		headers: {'Authorization': 'Bearer ' + token},
 		contentType: 'application/json',
 		crossDomain: true,
 		dataType: 'json',
@@ -42,12 +47,21 @@ $(document).ready(function(){
 	$.ajax({
 		url: 'https://localhost:8443/api/users/inactive',
 		type: 'GET',
-		headers: {'Authorization': 'Bearer'+token},
+		headers: {'Authorization': 'Bearer '+token},
 		contentType: 'application/json',
 //		crossDomain: true,
 		dataType: 'json',
 		success:function(data){
 			console.log(data);
+			
+			$('#users').after('<h2>Inactive users</h2>'+
+			'<table id="inactive">'+
+				'<tr>'+
+					'<th>username</th>'+
+					'<th>role</th>'+
+				'</tr>'+
+			'</table>')
+			
 			for(var i=0; i<data.length; i++){
 				$('#inactive').append(''+
 //						'<tr><th>username</th><th>role</th></tr>'+
@@ -71,6 +85,7 @@ $(document).ready(function(){
 		$.ajax({
 			url: 'https://localhost:8443/api/users/update/'+userId,
 			type: 'PUT',
+			headers: {'Authorization': 'Bearer '+token},
 			contentType: 'application/json',
 			dataType: 'json',
 			success:function(data){
@@ -82,6 +97,12 @@ $(document).ready(function(){
 	});
 	
 	
+	$('#logoutbtn').on('click', function(){
+		localStorage.removeItem('token');
+		location.reload();
+	});
+	
+	
 	$('#searchbtn').on('click', function(){
 		var search = '#searchinput';
 		var s = $(search).val();
@@ -89,6 +110,7 @@ $(document).ready(function(){
 		$.ajax({
 			url: 'https://localhost:8443/api/users/search/'+s,
 			type: 'GET',
+			headers: {'Authorization': 'Bearer '+token},
 			contentType: 'application/json',
 			dataType: 'json',
 			success:function(data){
