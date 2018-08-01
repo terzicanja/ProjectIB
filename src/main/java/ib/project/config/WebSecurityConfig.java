@@ -98,6 +98,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	                HttpMethod.POST,"/api/users/create"
 	        );
 	        web.ignoring().antMatchers(
+	                HttpMethod.GET,"/api/demo/**"
+	        );
+	        web.ignoring().antMatchers(
 	                HttpMethod.GET,
 	                "/",
 	                "/webjars/**",

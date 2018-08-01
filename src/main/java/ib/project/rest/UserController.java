@@ -2,6 +2,7 @@ package ib.project.rest;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -67,6 +68,12 @@ public class UserController {
 //	}
 	
 	
+	@RequestMapping("/whoami")
+    public User user(Principal user) {
+        return this.userService.findByEmail(user.getName());
+    }
+	
+	
 	@RequestMapping( method = GET)
 //    @PreAuthorize("hasRole('ADMIN')")
 //	@GetMapping
@@ -120,6 +127,7 @@ public class UserController {
 			return new ResponseEntity<UserDTO>(HttpStatus.BAD_REQUEST);
 		}
 		user.setActive(true);
+		user.setCertificate(user.getEmail());
 		user = userService.save(user);
 		return new ResponseEntity<UserDTO>(new UserDTO(user),HttpStatus.OK);
 	}

@@ -94,7 +94,8 @@ public class User implements Serializable,UserDetails {
 	@Override
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
-		return true;
+//		return true;
+		return this.active;
 	}
 	
 	
